@@ -1,0 +1,9 @@
+node_modules
+.next
+.env.local
+*.log
+data/
+
+# Locally written email copies (outbox fallback) and DB backups — data, not source
+data/outbox/
+data/backups/
