@@ -1,0 +1,40 @@
+'==============================================================================
+' DOCUMENT MODULE - the CONTROL_PANEL worksheet
+' Paste this code into the worksheet module of the CONTROL_PANEL sheet.
+'==============================================================================
+Option Explicit
+
+'--- Changing the selected part (or revision) refreshes the whole panel -------
+Private Sub Worksheet_Change(ByVal Target As Range)
+    Dim watched As Range
+
+    On Error Resume Next
+    Set watched = Union(Me.Range(modDashboard.CP_PART), Me.Range(modDashboard.CP_REV))
+    If watched Is Nothing Then Exit Sub
+
+    If Not Intersect(Target, watched) Is Nothing Then
+        Application.EnableEvents = False
+        modDashboard.RefreshDashboard
+        Application.EnableEvents = True
+    End If
+    On Error GoTo 0
+End Sub
+
+'--- Double-clicking a search result makes that part the active one -----------
+Private Sub Worksheet_BeforeDoubleClick(ByVal Target As Range, Cancel As Boolean)
+    On Error Resume Next
+    If Target.Column >= modDashboard.CP_RESULTCOL _
+       And Target.Column <= modDashboard.CP_RESULTCOL + 3 _
+       And Target.Row >= modDashboard.CP_RESULTTOP _
+       And Target.Row <= modDashboard.CP_RESULTLAST Then
+        Cancel = True
+        modDashboard.SelectPartFromSearchResults
+    End If
+    On Error GoTo 0
+End Sub
+
+'--- Pressing Enter in the search box runs the search -------------------------
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+    ' Kept deliberately empty - searching is driven by the SEARCH button so that
+    ' simply moving around the sheet never triggers work.
+End Sub
