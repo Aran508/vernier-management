@@ -1,0 +1,66 @@
+'==============================================================================
+' DOCUMENT MODULE - the MASTER_LIST worksheet
+' Paste this code into the worksheet module of the MASTER_LIST sheet.
+'==============================================================================
+Option Explicit
+
+'--- Editing an approval flag re-evaluates the part immediately ---------------
+Private Sub Worksheet_Change(ByVal Target As Range)
+    Dim lo As ListObject
+    Dim r As ListRow
+    Dim colName As String
+    Dim idx As Long
+
+    On Error GoTo Done
+    If Target.Cells.Count > 100 Then Exit Sub
+
+    Set lo = Me.ListObjects(TBL_MASTER)
+    If lo.DataBodyRange Is Nothing Then Exit Sub
+    If Intersect(Target, lo.DataBodyRange) Is Nothing Then Exit Sub
+
+    idx = Target.Cells(1, 1).Column - lo.Range.Column + 1
+    If idx < 1 Or idx > lo.ListColumns.Count Then Exit Sub
+    colName = lo.ListColumns(idx).Name
+
+    Select Case colName
+        Case COL_ROUTEOK, COL_PDFOK, COL_MAILOK, COL_MAILREQUIRED, COL_APPROVALSTATUS, COL_ROUTE
+            Set r = RowFromCell(lo, Target.Cells(1, 1))
+            If r Is Nothing Then Exit Sub
+
+            Application.EnableEvents = False
+            MLTouch r, "Manual edit: " & colName
+            LogRowAction r, "Manual edit: " & colName, vbNullString, _
+                         NzTrim(Target.Cells(1, 1).Value), RES_INFO
+
+            ' Keep the derived statuses honest after an approval change.
+            modStatus.ApplyChangeDetection r
+            modStatus.UpdateFinalStatus r
+            modDashboard.RefreshDashboard
+            Application.EnableEvents = True
+    End Select
+
+Done:
+    On Error Resume Next
+    Application.EnableEvents = True
+End Sub
+
+'--- Double-clicking any row makes that part the selected part ----------------
+Private Sub Worksheet_BeforeDoubleClick(ByVal Target As Range, Cancel As Boolean)
+    Dim lo As ListObject
+    On Error Resume Next
+    Set lo = Me.ListObjects(TBL_MASTER)
+    If lo Is Nothing Then Exit Sub
+    If lo.DataBodyRange Is Nothing Then Exit Sub
+    If Intersect(Target, lo.DataBodyRange) Is Nothing Then Exit Sub
+
+    Cancel = True
+    modDashboard.SelectPartFromMasterRow Target.Row
+    ThisWorkbook.Worksheets(SH_CONTROL).Activate
+    On Error GoTo 0
+End Sub
+
+Private Function RowFromCell(ByVal lo As ListObject, ByVal c As Range) As ListRow
+    Dim idx As Long
+    idx = c.Row - lo.HeaderRowRange.Row
+    If idx >= 1 And idx <= lo.ListRows.Count Then Set RowFromCell = lo.ListRows(idx)
+End Function
