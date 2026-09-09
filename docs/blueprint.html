@@ -1,0 +1,546 @@
+<title>Vernier Workshop Blueprint</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#E7EAEE; --sheet:#F6F7F9; --sheet-2:#EDF0F3;
+  --ink:#151C24; --ink-2:#495664; --ink-3:#7B8898;
+  --rule:#C2C9D2; --rule-2:#DCE1E7;
+  --hw:#AF3820; --sw:#0C7580; --ok:#2E6738; --warn:#8E5D0C;
+  --hw-bg:#F6E5E1; --sw-bg:#DFF0F1;
+  --shadow:0 1px 2px rgba(21,28,36,.08), 0 8px 24px -12px rgba(21,28,36,.18);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#11151A; --sheet:#191F26; --sheet-2:#141A20;
+    --ink:#E3E8EE; --ink-2:#A4B0BE; --ink-3:#6C7A8A;
+    --rule:#2B333D; --rule-2:#212932;
+    --hw:#E9764F; --sw:#42B9C4; --ok:#5FAE6D; --warn:#D7A032;
+    --hw-bg:#2C1A15; --sw-bg:#0F2A2D;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#11151A; --sheet:#191F26; --sheet-2:#141A20;
+  --ink:#E3E8EE; --ink-2:#A4B0BE; --ink-3:#6C7A8A;
+  --rule:#2B333D; --rule-2:#212932;
+  --hw:#E9764F; --sw:#42B9C4; --ok:#5FAE6D; --warn:#D7A032;
+  --hw-bg:#2C1A15; --sw-bg:#0F2A2D;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.62; margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px; margin:0 auto; padding:28px 20px 90px}
+
+/* ---------- title block ---------- */
+.titleblock{
+  background:var(--sheet); border:1px solid var(--rule); box-shadow:var(--shadow);
+  display:grid; grid-template-columns:1fr; margin-bottom:44px;
+}
+.tb-main{padding:26px 26px 22px; border-bottom:1px solid var(--rule)}
+.tb-eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--hw); margin:0 0 10px;
+}
+h1{
+  font-family:"Archivo Narrow","Arial Narrow",sans-serif; font-weight:700;
+  font-size:clamp(34px,6.4vw,54px); line-height:1.02; letter-spacing:-.012em;
+  margin:0 0 14px; text-wrap:balance;
+}
+.tb-sub{font-size:16px; color:var(--ink-2); max-width:62ch; margin:0}
+.tb-meta{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px;
+}
+.tb-cell{padding:11px 16px; border-right:1px solid var(--rule-2)}
+.tb-cell:last-child{border-right:none}
+.tb-k{color:var(--ink-3); letter-spacing:.1em; text-transform:uppercase; font-size:9.5px; display:block; margin-bottom:3px}
+.tb-v{color:var(--ink); font-weight:500}
+
+/* ---------- sheets ---------- */
+.sheet{margin-bottom:54px; scroll-margin-top:20px}
+.sheet-head{display:flex; gap:16px; align-items:baseline; border-bottom:2px solid var(--ink); padding-bottom:9px; margin-bottom:22px}
+.sheet-no{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12px; font-weight:600;
+  color:var(--hw); letter-spacing:.06em; flex:none; padding-top:2px;
+}
+h2{
+  font-family:"Archivo Narrow","Arial Narrow",sans-serif; font-weight:700;
+  font-size:clamp(23px,3.4vw,31px); line-height:1.1; letter-spacing:.004em;
+  margin:0; text-transform:uppercase; flex:1;
+}
+.sheet-note{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10.5px; color:var(--ink-3); letter-spacing:.06em; text-transform:uppercase; flex:none}
+h3{
+  font-family:"Archivo Narrow","Arial Narrow",sans-serif; font-weight:600;
+  font-size:17px; letter-spacing:.05em; text-transform:uppercase;
+  margin:32px 0 12px; color:var(--ink);
+}
+h3:first-child{margin-top:0}
+p{margin:0 0 15px; max-width:70ch}
+p.lead{font-size:16.5px; color:var(--ink-2); max-width:66ch}
+a{color:var(--sw)}
+strong{font-weight:600}
+code{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.88em; background:var(--sheet-2); border:1px solid var(--rule-2); padding:.09em .34em; border-radius:2px}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto; border:1px solid var(--rule); background:var(--sheet); box-shadow:var(--shadow); margin:0 0 18px}
+table{border-collapse:collapse; width:100%; min-width:600px; font-size:13.5px}
+th{
+  font-family:"Archivo Narrow","Arial Narrow",sans-serif; font-weight:600; font-size:11.5px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);
+  text-align:left; padding:10px 14px; border-bottom:1px solid var(--rule); white-space:nowrap;
+}
+td{padding:11px 14px; border-bottom:1px solid var(--rule-2); vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+td.mono,th.mono,.num{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12.5px; font-variant-numeric:tabular-nums}
+.num{text-align:right; white-space:nowrap}
+tfoot td{border-top:1px solid var(--rule); border-bottom:none; font-weight:600; background:var(--sheet-2)}
+
+/* ---------- pills ---------- */
+.pill{
+  display:inline-block; font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10px; font-weight:500; letter-spacing:.07em; text-transform:uppercase;
+  padding:2px 7px; border-radius:2px; white-space:nowrap; border:1px solid;
+}
+.p-no{color:var(--hw); border-color:var(--hw); background:var(--hw-bg)}
+.p-yes{color:var(--ok); border-color:var(--ok); background:transparent}
+.p-part{color:var(--warn); border-color:var(--warn); background:transparent}
+.p-new{color:var(--hw); border-color:var(--hw); background:var(--hw-bg)}
+.p-used{color:var(--sw); border-color:var(--sw); background:var(--sw-bg)}
+.p-sw{color:var(--sw); border-color:var(--sw); background:var(--sw-bg)}
+
+/* ---------- callout ---------- */
+.callout{
+  border-left:3px solid var(--hw); background:var(--sheet); padding:15px 18px;
+  margin:0 0 20px; box-shadow:var(--shadow);
+}
+.callout.teal{border-left-color:var(--sw)}
+.callout p:last-child{margin-bottom:0}
+.callout-k{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--hw);
+  display:block; margin-bottom:6px;
+}
+.callout.teal .callout-k{color:var(--sw)}
+
+/* ---------- diagram ---------- */
+.diagram{background:var(--sheet); border:1px solid var(--rule); box-shadow:var(--shadow); padding:18px; overflow-x:auto; margin-bottom:18px}
+.diagram svg{display:block; min-width:720px; width:100%; height:auto}
+.d-band{fill:var(--sheet-2); stroke:var(--rule-2)}
+.d-box{fill:var(--sheet); stroke:var(--rule)}
+.d-box-hw{fill:var(--hw-bg); stroke:var(--hw)}
+.d-box-sw{fill:var(--sw-bg); stroke:var(--sw)}
+.d-t{fill:var(--ink); font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:500}
+.d-s{fill:var(--ink-3); font-family:"IBM Plex Mono",monospace; font-size:10px}
+.d-l{fill:var(--ink-3); font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.13em}
+.d-c{stroke:var(--rule); stroke-width:1.4; fill:none}
+.d-cl{fill:var(--ink-3); font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.05em}
+
+/* ---------- steps / phases ---------- */
+.phase{display:grid; grid-template-columns:82px 1fr; border:1px solid var(--rule); background:var(--sheet); box-shadow:var(--shadow); margin-bottom:12px}
+.phase-id{
+  border-right:1px solid var(--rule); padding:15px 12px; background:var(--sheet-2);
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; color:var(--ink-3); letter-spacing:.06em;
+}
+.phase-id b{display:block; font-family:"Archivo Narrow",sans-serif; font-size:26px; font-weight:700; color:var(--hw); letter-spacing:0; line-height:1.05}
+.phase-body{padding:15px 18px}
+.phase-body h4{font-family:"Archivo Narrow","Arial Narrow",sans-serif; font-size:17px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; margin:0 0 7px}
+.phase-body p{margin:0 0 9px; font-size:14px}
+.gate{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px; color:var(--ok); display:block; padding-top:8px; border-top:1px dashed var(--rule-2)}
+.gate b{color:var(--ink-3); font-weight:500; letter-spacing:.08em; text-transform:uppercase; font-size:9.5px}
+
+ul{margin:0 0 15px; padding-left:19px; max-width:70ch}
+li{margin-bottom:7px}
+li::marker{color:var(--ink-3)}
+.tree{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12.5px; line-height:1.72;
+  background:var(--sheet); border:1px solid var(--rule); box-shadow:var(--shadow);
+  padding:16px 18px; overflow-x:auto; white-space:pre; margin:0 0 18px; color:var(--ink-2);
+}
+.tree b{color:var(--ink); font-weight:600}
+.tree i{color:var(--ink-3); font-style:normal}
+
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; margin-bottom:18px}
+.card{background:var(--sheet); border:1px solid var(--rule); box-shadow:var(--shadow); padding:16px 18px}
+.card h4{font-family:"Archivo Narrow","Arial Narrow",sans-serif; font-size:15px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; margin:0 0 8px; color:var(--sw)}
+.card p{font-size:13.5px; margin:0}
+
+footer{border-top:2px solid var(--ink); padding-top:20px; margin-top:56px}
+footer p{font-size:14px}
+.qs{counter-reset:q; list-style:none; padding:0; max-width:70ch}
+.qs li{counter-increment:q; padding-left:30px; position:relative; margin-bottom:11px}
+.qs li::before{
+  content:"Q" counter(q); position:absolute; left:0; top:1px;
+  font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600; color:var(--hw);
+}
+:focus-visible{outline:2px solid var(--sw); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+@media (max-width:600px){
+  .wrap{padding:16px 13px 60px}
+  .sheet-note{display:none}
+  .phase{grid-template-columns:62px 1fr}
+}
+</style>
+
+<div class="wrap">
+
+<div class="titleblock">
+  <div class="tb-main">
+    <p class="tb-eyebrow">Build blueprint &middot; Rev A</p>
+    <h1>Vernier Workshop</h1>
+    <p class="tb-sub">A single-user AI workspace: one always-listening room, five live surfaces, and an assistant that wakes the desk on three claps, briefs you on the day, and drives CATIA, CalculiX and your 3P sheets on request.</p>
+  </div>
+  <div class="tb-meta">
+    <div class="tb-cell"><span class="tb-k">Sheets</span><span class="tb-v">11</span></div>
+    <div class="tb-cell"><span class="tb-k">Build phases</span><span class="tb-v">6</span></div>
+    <div class="tb-cell"><span class="tb-k">Core hardware</span><span class="tb-v">₹1.05–1.35 L</span></div>
+    <div class="tb-cell"><span class="tb-k">Time to P0</span><span class="tb-v">~2 weeks</span></div>
+    <div class="tb-cell"><span class="tb-k">Status</span><span class="tb-v">Design</span></div>
+  </div>
+</div>
+
+<!-- 00 -->
+<section class="sheet">
+  <div class="sheet-head"><span class="sheet-no">00</span><h2>Read this first</h2><span class="sheet-note">Reality check</span></div>
+  <p class="lead">Your reference image is a render. Some of it is real hardware you can buy this month; some of it is compositing that does not exist at any price. Here is the honest line-by-line, because building the wrong thing first is the expensive mistake.</p>
+  <div class="tw"><table>
+    <thead><tr><th>In the render</th><th>Real?</th><th>What you actually build</th></tr></thead>
+    <tbody>
+      <tr><td>Panels floating in mid-air, unsupported</td><td><span class="pill p-no">CGI</span></td><td>Nothing does this. Closest real effects on Sheet 05 — a beam-splitter panel genuinely floats an image, and AR glasses genuinely place panels in the room.</td></tr>
+      <tr><td>Edge-to-edge glass, no bezels</td><td><span class="pill p-part">Partly</span></td><td>3 monitors on gas-spring arms, thin-bezel, in a dark room with a black-ground UI. Bezels disappear visually. This is 90% of the look for 5% of the cost.</td></tr>
+      <tr><td>Anime avatar that greets you</td><td><span class="pill p-yes">Yes</span></td><td>Live2D rig or a reactive waveform orb, lip-synced to TTS visemes. Half a day of work once voice output exists.</td></tr>
+      <tr><td>Three claps → room wakes up</td><td><span class="pill p-yes">Yes</span></td><td>Pi 5 + mic array, onset detection. Sheet 03 has the full sequence and the timing trick that makes it feel instant.</td></tr>
+      <tr><td>AI finds and connects any software itself</td><td><span class="pill p-part">Partly</span></td><td>MCP discovery → sandbox probe → <em>approval gate</em> → register. Autonomous discovery, gated install. Sheet 07 explains why the gate is non-negotiable.</td></tr>
+      <tr><td>Reads CATIA models, runs CAE, writes 3P sheets</td><td><span class="pill p-yes">Yes</span></td><td>pycatia over COM, Gmsh + CalculiX, python-docx. Sheet 08. This is the part with real payback for your actual job.</td></tr>
+      <tr><td>The AI is sentient</td><td><span class="pill p-no">No</span></td><td>Nothing is, including me. But "feels alive" is a solved engineering problem with six ingredients — Sheet 02.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">
+    <span class="callout-k">The one rule that decides whether this gets finished</span>
+    <p>Every phase must end in something that works on its own. A room that only lights up after all six phases are done is a room that never lights up. Phase 0 is a talking assistant with memory and <em>no hardware at all</em> — build that first, live with it for a week, and let what annoys you decide Phase 1.</p>
+  </div>
+</section>
+
+<!-- 01 -->
+<section class="sheet">
+  <div class="sheet-head"><span class="sheet-no">01</span><h2>System architecture</h2><span class="sheet-note">5 layers</span></div>
+  <p class="lead">Two machines, split by duty cycle. The Pi is always on and draws about 5&nbsp;W — it owns the ears and the room. The laptop is the brain and sleeps when you do. That split is what makes "always listening" survive your electricity bill.</p>
+  <div class="diagram">
+  <svg viewBox="0 0 920 606" role="img" aria-label="Five-layer architecture: room devices, Raspberry Pi edge, laptop core, model brain, and display surfaces">
+    <text x="0" y="34" class="d-l">L4</text><text x="0" y="47" class="d-s">OUT</text>
+    <rect x="60" y="16" width="856" height="72" class="d-band"/>
+    <text x="72" y="34" class="d-l">SURFACES</text>
+    <rect x="72" y="42" width="200" height="36" class="d-box" rx="2"/><text x="84" y="59" class="d-t">3 × monitor</text><text x="84" y="72" class="d-s">chromium --kiosk</text>
+    <rect x="282" y="42" width="200" height="36" class="d-box" rx="2"/><text x="294" y="59" class="d-t">Holo panel</text><text x="294" y="72" class="d-s">avatar + status</text>
+    <rect x="492" y="42" width="200" height="36" class="d-box" rx="2"/><text x="504" y="59" class="d-t">Voice</text><text x="504" y="72" class="d-s">speakers, TTS out</text>
+    <rect x="702" y="42" width="202" height="36" class="d-box" rx="2"/><text x="714" y="59" class="d-t">Phone</text><text x="714" y="72" class="d-s">same core, remote</text>
+
+    <path d="M488 88 L488 128" class="d-c"/><path d="M482 120 L488 128 L494 120" class="d-c"/>
+    <text x="500" y="112" class="d-cl">WEBSOCKET · JSON PATCH</text>
+
+    <text x="0" y="154" class="d-l">L3</text><text x="0" y="167" class="d-s">THINK</text>
+    <rect x="60" y="136" width="856" height="72" class="d-band"/>
+    <text x="72" y="154" class="d-l">BRAIN</text>
+    <rect x="72" y="162" width="200" height="36" class="d-box-sw" rx="2"/><text x="84" y="179" class="d-t">Claude Opus 5</text><text x="84" y="192" class="d-s">reasoning · 1M ctx</text>
+    <rect x="282" y="162" width="200" height="36" class="d-box" rx="2"/><text x="294" y="179" class="d-t">Local LLM</text><text x="294" y="192" class="d-s">ollama · routing, offline</text>
+    <rect x="492" y="162" width="200" height="36" class="d-box" rx="2"/><text x="504" y="179" class="d-t">faster-whisper</text><text x="504" y="192" class="d-s">speech → text</text>
+    <rect x="702" y="162" width="202" height="36" class="d-box" rx="2"/><text x="714" y="179" class="d-t">Piper / 11Labs</text><text x="714" y="192" class="d-s">text → speech</text>
+
+    <path d="M488 208 L488 248" class="d-c"/><path d="M482 240 L488 248 L494 240" class="d-c"/>
+    <text x="500" y="232" class="d-cl">HTTPS · LOCAL SOCKET</text>
+
+    <text x="0" y="274" class="d-l">L2</text><text x="0" y="287" class="d-s">CORE</text>
+    <rect x="60" y="256" width="856" height="104" class="d-band"/>
+    <text x="72" y="274" class="d-l">ORCHESTRATOR — LAPTOP</text>
+    <rect x="72" y="282" width="832" height="66" class="d-box-sw" rx="2"/>
+    <text x="86" y="303" class="d-t">jarvis-core · FastAPI + asyncio event bus</text>
+    <rect x="86" y="312" width="146" height="26" class="d-box" rx="2"/><text x="96" y="329" class="d-s">memory · sqlite+vec</text>
+    <rect x="242" y="312" width="146" height="26" class="d-box" rx="2"/><text x="252" y="329" class="d-s">tool router</text>
+    <rect x="398" y="312" width="146" height="26" class="d-box" rx="2"/><text x="408" y="329" class="d-s">mcp host</text>
+    <rect x="554" y="312" width="146" height="26" class="d-box" rx="2"/><text x="564" y="329" class="d-s">scheduler</text>
+    <rect x="710" y="312" width="180" height="26" class="d-box" rx="2"/><text x="720" y="329" class="d-s">dashboard server</text>
+
+    <path d="M488 360 L488 400" class="d-c"/><path d="M482 392 L488 400 L494 392" class="d-c"/>
+    <text x="500" y="384" class="d-cl">MQTT · WAKE-ON-LAN</text>
+
+    <text x="0" y="426" class="d-l">L1</text><text x="0" y="439" class="d-s">EDGE</text>
+    <rect x="60" y="408" width="856" height="72" class="d-band"/>
+    <text x="72" y="426" class="d-l">EDGE — RASPBERRY PI 5 · ALWAYS ON · ~5 W</text>
+    <rect x="72" y="434" width="200" height="36" class="d-box-hw" rx="2"/><text x="84" y="451" class="d-t">Wake word</text><text x="84" y="464" class="d-s">openWakeWord</text>
+    <rect x="282" y="434" width="200" height="36" class="d-box-hw" rx="2"/><text x="294" y="451" class="d-t">Clap detector</text><text x="294" y="464" class="d-s">onset + spectral</text>
+    <rect x="492" y="434" width="200" height="36" class="d-box-hw" rx="2"/><text x="504" y="451" class="d-t">Presence</text><text x="504" y="464" class="d-s">mmWave poll</text>
+    <rect x="702" y="434" width="202" height="36" class="d-box-hw" rx="2"/><text x="714" y="451" class="d-t">Room control</text><text x="714" y="464" class="d-s">LED, WoL, DDC-CI</text>
+
+    <path d="M488 480 L488 520" class="d-c"/><path d="M482 512 L488 520 L494 512" class="d-c"/>
+    <text x="500" y="504" class="d-cl">GPIO · USB · WLED OVER WI-FI</text>
+
+    <text x="0" y="546" class="d-l">L0</text><text x="0" y="559" class="d-s">ROOM</text>
+    <rect x="60" y="528" width="856" height="66" class="d-band"/>
+    <text x="72" y="546" class="d-l">ROOM</text>
+    <rect x="72" y="554" width="158" height="32" class="d-box" rx="2"/><text x="82" y="574" class="d-s">LED tubes ×6</text>
+    <rect x="240" y="554" width="158" height="32" class="d-box" rx="2"/><text x="250" y="574" class="d-s">4-mic array</text>
+    <rect x="408" y="554" width="158" height="32" class="d-box" rx="2"/><text x="418" y="574" class="d-s">LD2410 mmWave</text>
+    <rect x="576" y="554" width="158" height="32" class="d-box" rx="2"/><text x="586" y="574" class="d-s">speakers</text>
+    <rect x="744" y="554" width="160" height="32" class="d-box" rx="2"/><text x="754" y="574" class="d-s">camera (opt.)</text>
+  </svg>
+  </div>
+  <p><span class="pill p-sw">Teal</span> is software and data. <span class="pill p-new">Vermilion</span> is anything physical that can be unplugged. Every arrow is one protocol — if you cannot name the protocol on a link, that link is not designed yet.</p>
+</section>
+
+<!-- 02 -->
+<section class="sheet">
+  <div class="sheet-head"><span class="sheet-no">02</span><h2>What "alive" actually means</h2><span class="sheet-note">6 ingredients</span></div>
+  <p class="lead">You asked for it to be sentient. It won't be — but that isn't what you're actually after. What makes an assistant feel present rather than transactional is six specific, buildable behaviours. Skip any one of them and it drops straight back to feeling like a chatbot in a nice frame.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:26%">Ingredient</th><th>Why it lands</th><th class="mono" style="width:24%">Built with</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Persistent memory</strong></td><td>It says "you said the fixture tolerance was the problem yesterday — did that hold?" Nothing else buys this much perceived intelligence for so little code.</td><td class="mono">SQLite + sqlite-vec</td></tr>
+      <tr><td><strong>Proactive initiative</strong></td><td>It speaks <em>first</em>. This is the single biggest one. An assistant that waits for input is a tool; one that opens with "your 3P review is in 40 minutes and the BOM still has two blanks" is a colleague.</td><td class="mono">scheduler + triggers</td></tr>
+      <tr><td><strong>Prosody</strong></td><td>A flat robotic voice destroys the illusion instantly, no matter how good the reasoning is. It needs pacing, emphasis, and a shift in register.</td><td class="mono">Piper / ElevenLabs</td></tr>
+      <tr><td><strong>Presence awareness</strong></td><td>Knows you walked in, knows you left. Dims the room, pauses the brief mid-sentence, resumes when you sit back down.</td><td class="mono">LD2410 mmWave</td></tr>
+      <tr><td><strong>Sentiment reading</strong></td><td>Your voice tone sets its register — terse and factual when you're stressed, expansive when you're exploring. This is the "sentiment" half of what you asked for, and it's real.</td><td class="mono">openSMILE / wav2vec</td></tr>
+      <tr><td><strong>State continuity</strong></td><td>The dashboards never reset to a blank welcome screen. It is always mid-conversation with your life.</td><td class="mono">event-sourced core</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout teal">
+    <span class="callout-k">Design note</span>
+    <p>Memory needs three separate stores, not one. <strong>Episodic</strong> — what happened and when, appended forever. <strong>Semantic</strong> — durable facts about you, your projects, the people you work with, rewritten as they change. <strong>Procedural</strong> — how <em>you</em> do things: your 3P sheet format, your review checklist, your naming convention. The third one is what turns a generic assistant into yours, and almost nobody builds it.</p>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="sheet">
+  <div class="sheet-head"><span class="sheet-no">03</span><h2>The wake sequence</h2><span class="sheet-note">3 claps → live room</span></div>
+  <p class="lead">This is the moment the whole project is judged on. Get the timing wrong and there's an eight-second silence after your claps where nothing happens and the magic dies. The fix is on line four of the table.</p>
+  <div class="tw"><table>
+    <thead><tr><th class="mono" style="width:11%">T+</th><th style="width:13%">Actor</th><th>Event</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">0.00 s</td><td><span class="pill p-new">Pi</span></td><td>Third clap detected. Three broadband transients, 150–600 ms apart, ≥12 dB over the rolling noise floor, each decaying inside 100 ms.</td></tr>
+      <tr><td class="mono">0.05 s</td><td><span class="pill p-new">Pi</span></td><td>Cross-check mmWave: is anyone actually in the room? If not, ignore — this kills the door-slam and dropped-spanner false positives.</td></tr>
+      <tr><td class="mono">0.15 s</td><td><span class="pill p-new">Pi</span></td><td>LED tubes ease 0 → 35%, warm white, 800 ms curve. The room responds before anything else does.</td></tr>
+      <tr><td class="mono">0.30 s</td><td><span class="pill p-new">Pi</span></td><td><strong>Pi speaks the greeting itself</strong>, from pre-rendered local audio. It does not wait for the laptop. This one decision is the difference between "alive" and "buffering".</td></tr>
+      <tr><td class="mono">0.35 s</td><td><span class="pill p-new">Pi</span></td><td>Wake-on-LAN magic packet to the laptop; DDC-CI power-on to each monitor over the display cable.</td></tr>
+      <tr><td class="mono">3–8 s</td><td><span class="pill p-sw">Core</span></td><td>Laptop up. Kiosk browsers restore their assigned dashboard per monitor. Panels populate as data arrives — never a spinner on a blank screen.</td></tr>
+      <tr><td class="mono">4 s</td><td><span class="pill p-sw">Core</span></td><td>Brief assembled in parallel: calendar, unread mail triage, open tasks, overnight production numbers, two news items filtered to your industry.</td></tr>
+      <tr><td class="mono">6 s</td><td><span class="pill p-sw">Core</span></td><td>Spoken brief begins, LEDs to full. Ends on a question — "what's the one thing that has to land today?" — and your answer sets the day's priority.</td></tr>
+      <tr><td class="mono">+10 s</td><td><span class="pill p-new">Pi</span></td><td>Clap trigger debounced for 10 minutes. Wake word stays live.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">
+    <span class="callout-k">Failure mode to design around</span>
+    <p>Clap detection <em>will</em> false-positive on a dropped tool or a slammed door. Three guards, in order of cheapness: require the three-transient rhythm (not just loudness), gate on presence, and make the wake action harmless — lights and a greeting, never anything destructive. Never put an irreversible action behind an acoustic trigger.</p>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="sheet">
+  <div class="sheet-head"><span class="sheet-no">04</span><h2>Hardware bill of materials</h2><span class="sheet-note">Est. INR</span></div>
+  <p class="lead">You said quality first, second-hand where sensible. The <strong>Buy</strong> column is the whole answer to that: buy used where failure is visible and gradual, buy new where failure is invisible and takes something else down with it. Prices are Indian-market estimates and will drift.</p>
+  <h3>Core tier — required for Phases 0–3</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:23%">Item</th><th>Spec &amp; reasoning</th><th style="width:11%">Buy</th><th class="num" style="width:13%">₹ est.</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Brain laptop</strong></td><td>RTX 3060 6 GB or better, 32 GB RAM, 1 TB NVMe. GPU is for local Whisper and a 7–14B local model, not for the Claude calls. Check thermals and battery health before paying.</td><td><span class="pill p-used">Used OK</span></td><td class="num">55,000–75,000</td></tr>
+      <tr><td><strong>Raspberry Pi 5</strong></td><td>8 GB, with the active cooler — it throttles hard without one. Add a 27 W official PSU.</td><td><span class="pill p-new">New</span></td><td class="num">11,000</td></tr>
+      <tr><td><strong>Mic array</strong></td><td>ReSpeaker USB 4-Mic. Far-field beamforming is what lets you talk from across the room instead of leaning into a laptop. A USB speakerphone at ~₹2,500 is the budget fallback.</td><td><span class="pill p-new">New</span></td><td class="num">5,500</td></tr>
+      <tr><td><strong>Monitors ×2</strong></td><td>27" 1440p IPS, thin bezel. Dead pixels and backlight bleed are visible in 30 seconds — used is safe here, and it's the biggest single saving.</td><td><span class="pill p-used">Used OK</span></td><td class="num">18,000–26,000</td></tr>
+      <tr><td><strong>Monitor arms</strong></td><td>Dual gas-spring VESA. Non-negotiable for the floating look — arms are what get the panels off the desk plane.</td><td><span class="pill p-used">Used OK</span></td><td class="num">4,000</td></tr>
+      <tr><td><strong>Speakers</strong></td><td>Small powered monitors. Voice quality carries more of the "alive" feeling than screen count does.</td><td><span class="pill p-used">Used OK</span></td><td class="num">5,000</td></tr>
+      <tr><td><strong>LED tubes</strong></td><td>5 m SK6812 addressable strip @ 60/m, plus 6 × 1 m aluminium channel with frosted diffuser. The diffuser is what turns a strip of dots into a light tube — don't skip it.</td><td><span class="pill p-new">New</span></td><td class="num">4,500</td></tr>
+      <tr><td><strong>ESP32 ×2</strong></td><td>Flashed with WLED. Wi-Fi LED control, no wiring back to the Pi.</td><td><span class="pill p-new">New</span></td><td class="num">800</td></tr>
+      <tr><td><strong>LED power supply</strong></td><td>5 V 15 A SMPS, branded. <em>Never</em> buy this used or unbranded. A failing PSU takes the strip and possibly the ESP32 with it, and it sits powered in your room all night.</td><td><span class="pill p-new">New</span></td><td class="num">1,400</td></tr>
+      <tr><td><strong>Presence sensor</strong></td><td>LD2410C mmWave. Detects a stationary person — PIR does not, and will switch your room off while you sit reading.</td><td><span class="pill p-new">New</span></td><td class="num">500</td></tr>
+      <tr><td><strong>Storage &amp; wiring</strong></td><td>128 GB A2 microSD, level shifter, fuses, connectors, cable management. Storage used = silent data loss.</td><td><span class="pill p-new">New</span></td><td class="num">3,000</td></tr>
+    </tbody>
+    <tfoot><tr><td colspan="3">Core subtotal</td><td class="num">₹1,08,700 – 1,36,700</td></tr></tfoot>
+  </table></div>
+  <h3>Later tier — Phase 5 and comfort</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:23%">Item</th><th>Spec &amp; reasoning</th><th style="width:11%">Buy</th><th class="num" style="width:13%">₹ est.</th></tr></thead>
+    <tbody>
+      <tr><td>Beam-splitter glass</td><td>600 × 400 mm, 60:40 ratio, plus frame and a spare monitor facing up into it. The floating-panel effect — see Sheet 05.</td><td><span class="pill p-new">New</span></td><td class="num">9,000</td></tr>
+      <tr><td>Third monitor</td><td>Portrait orientation for logs and task list.</td><td><span class="pill p-used">Used OK</span></td><td class="num">9,000</td></tr>
+      <tr><td>UPS</td><td>600 VA. A power cut mid-brief is the least magical thing that can happen.</td><td><span class="pill p-new">New</span></td><td class="num">4,000</td></tr>
+      <tr><td>Camera</td><td>1080p USB for facial sentiment. Genuinely optional — voice tone already carries most of the signal, and a camera in your room is a bigger privacy decision than a microphone.</td><td><span class="pill p-used">Used OK</span></td><td class="num">2,500</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">
+    <span class="callout-k">Buying used without regret</span>
+    <p>Three rules. <strong>Never used:</strong> power supplies, storage, anything mains-connected — these fail silently and take other things with them. <strong>Used freely:</strong> monitors, arms, speakers, chassis — defects are visible on inspection. <strong>Test before paying:</strong> a laptop's battery cycle count and thermal throttling under a 10-minute load are the two things sellers don't mention and you can't fix.</p>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="sheet">
+  <div class="sheet-head"><span class="sheet-no">05</span><h2>The transparent display</h2><span class="sheet-note">4 routes</span></div>
+  <p class="lead">Four real ways to get toward the look in your render, ordered by cost. My recommendation is to build option A now and add option C as a single hero panel later — the two together read as the whole render.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:9%">Route</th><th style="width:22%">Method</th><th>How it reads in the room</th><th class="num" style="width:13%">₹</th></tr></thead>
+    <tbody>
+      <tr><td class="mono"><strong>A</strong></td><td>Dark-room glassmorphism</td><td>Normal monitors, pure-black UI ground, translucent panels, thin cyan hairlines. In a dark room the bezels vanish and the panels appear to float. Not transparent — but it is what most of your render actually looks like.</td><td class="num">0</td></tr>
+      <tr><td class="mono"><strong>B</strong></td><td>AR glasses</td><td>Xreal / Viture. Panels genuinely hang in space around you and follow your head. The closest thing to the render that exists. Downside: only you see it, and you can't wear them all day.</td><td class="num">~35,000</td></tr>
+      <tr><td class="mono"><strong>C</strong></td><td>Pepper's Ghost</td><td>Beam-splitter glass at 45°, monitor hidden below facing up. The image genuinely floats in the glass with the room visible behind it. A real optical effect, not a simulation — this is the one that makes visitors stop talking.</td><td class="num">~9,000</td></tr>
+      <tr><td class="mono"><strong>D</strong></td><td>Transparent OLED</td><td>The actual article. 30–55" panels exist. Dim, awkward to source in India, and priced like a used car.</td><td class="num">1.5 L+</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout teal">
+    <span class="callout-k">Why C is worth the ₹9,000</span>
+    <p>Pepper's Ghost has one hard constraint that shapes the UI: <strong>black is transparent, white is solid.</strong> Anything dark in your design simply isn't there. So the holo panel gets its own layout — the avatar, a clock, three status lines, thin bright strokes on pure black — while the dense dashboards stay on the flat monitors where they're actually readable. Don't try to mirror a dashboard into the glass; it will look like grey soup.</p>
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="sheet">
+  <div class="sheet-head"><span class="sheet-no">06</span><h2>Software stack</h2><span class="sheet-note">Repo layout</span></div>
+  <p class="lead">One Python core on the laptop, one Python agent on the Pi, one React dashboard served to every screen. Everything talks over an internal event bus, which means you can add a surface later without touching the core.</p>
+  <div class="grid2">
+    <div class="card"><h4>Core — laptop</h4><p>Python 3.12, FastAPI, asyncio event bus. Anthropic SDK for reasoning, Ollama for the always-on cheap path, faster-whisper for STT, Piper for local TTS. SQLite with sqlite-vec for all three memory stores.</p></div>
+    <div class="card"><h4>Edge — Pi 5</h4><p>Python, openWakeWord, a 40-line clap detector on raw audio frames, LD2410 over UART, MQTT to the core, WLED over HTTP, wakeonlan and ddcutil for the room.</p></div>
+    <div class="card"><h4>Dashboard</h4><p>React + Vite, one route per monitor, WebSocket subscription with JSON-patch deltas so panels update without re-rendering. Chromium in kiosk mode, one instance per display.</p></div>
+    <div class="card"><h4>Room hub</h4><p>Home Assistant in Docker, if you add more than about four devices. It already speaks Zigbee, Tuya, Matter and MQTT — do not hand-roll device drivers you can inherit.</p></div>
+  </div>
+  <div class="tree"><b>vernier-workshop/</b>
+├─ <b>core/</b>            <i># laptop — the orchestrator</i>
+│  ├─ bus.py          <i># async event bus, everything flows through here</i>
+│  ├─ brain.py        <i># Claude + local model routing</i>
+│  ├─ memory/         <i># episodic · semantic · procedural</i>
+│  ├─ tools/          <i># native tool implementations</i>
+│  ├─ mcp/            <i># host, registry, sandbox, approval gate</i>
+│  ├─ voice/          <i># stt · tts · sentiment</i>
+│  └─ api.py          <i># FastAPI + WebSocket to the dashboards</i>
+├─ <b>edge/</b>            <i># raspberry pi — always on</i>
+│  ├─ ears.py         <i># wake word + clap detector</i>
+│  ├─ presence.py     <i># LD2410 mmWave over UART</i>
+│  ├─ room.py         <i># WLED · wake-on-LAN · DDC-CI</i>
+│  └─ greet/          <i># pre-rendered wake audio (the 0.30 s trick)</i>
+├─ <b>dash/</b>            <i># react — one route per monitor</i>
+│  └─ src/panels/     <i># assistant · production · cae · tasks · files</i>
+├─ <b>domain/</b>          <i># your actual job</i>
+│  ├─ catia/          <i># pycatia COM automation</i>
+│  ├─ cae/            <i># gmsh → calculix → pyvista</i>
+│  └─ sheets/         <i># 3P sheet generation</i>
+└─ <b>ops/</b>             <i># compose files, systemd units, provisioning</i></div>
+</section>
+
+<!-- 07 -->
+<section class="sheet">
+  <div class="sheet-head"><span class="sheet-no">07</span><h2>Self-connecting tools</h2><span class="sheet-note">MCP + the gate</span></div>
+  <p class="lead">You want it to find software it needs, try it, and connect itself. That is exactly what MCP is for, and it's how I'm working with you right now. But there is one step you can't remove.</p>
+  <div class="tw"><table>
+    <thead><tr><th class="mono" style="width:8%">Step</th><th style="width:24%">Action</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">1</td><td>Recognise the gap</td><td>A task fails or is refused for want of a capability. The failure is logged as a structured need, not just an error.</td></tr>
+      <tr><td class="mono">2</td><td>Search</td><td>Query MCP registries and package indexes for a server matching the need.</td></tr>
+      <tr><td class="mono">3</td><td>Read the manifest</td><td>Pull the declared tool list, the permission surface, and what it wants to reach on the network.</td></tr>
+      <tr><td class="mono">4</td><td>Install isolated</td><td>Into a throwaway container. No host filesystem, no credentials, no LAN.</td></tr>
+      <tr><td class="mono">5</td><td>Probe</td><td>Enumerate tools, call the read-only ones with synthetic input, record what actually works versus what the README claims.</td></tr>
+      <tr><td class="mono">6</td><td><strong>Approval gate</strong></td><td>A card on the dashboard: what it wants, why, what it will be able to reach. Read-only local tools auto-approve. Anything touching network, credentials or your files waits for you — once.</td></tr>
+      <tr><td class="mono">7</td><td>Register</td><td>Persist to the tool router with a scoped credential and a per-tool rate limit. Available from the next turn onward.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">
+    <span class="callout-k">Why step 6 stays</span>
+    <p>An MCP server is arbitrary code that runs with whatever access you hand it. Auto-installing whatever a search returns means one poisoned README or one prompt injection inside a document you asked it to read is enough to get your CATIA models, your mail and your credentials exfiltrated — and you would not see it happen. The gate costs you one click per new tool, roughly once a week. It is the cheapest insurance in this entire build.</p>
+    <p>The right framing: <strong>discovery is autonomous, installation is consented.</strong> That is still a system that grows its own capabilities — it just tells you when it does.</p>
+  </div>
+</section>
+
+<!-- 08 -->
+<section class="sheet">
+  <div class="sheet-head"><span class="sheet-no">08</span><h2>Domain automation</h2><span class="sheet-note">CATIA · CAE · 3P</span></div>
+  <p class="lead">Everything above is infrastructure. This sheet is the part that pays for itself, because it automates the work you actually do. Build it last, but design the core knowing it's coming.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:20%">Capability</th><th style="width:26%">Toolchain</th><th>What the AI does with it</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CATIA V5</strong></td><td class="mono">pycatia (COM, Windows)</td><td>Walks the spec tree, pulls mass, material, and parameters, extracts the BOM, batch-exports DWG/PDF/STEP. Answers "which parts changed since the last release?" without you opening the model.</td></tr>
+      <tr><td><strong>Open CAD path</strong></td><td class="mono">FreeCAD Python API</td><td>Headless geometry work when CATIA isn't licensed on the machine, and STEP handling for the CAE pipeline.</td></tr>
+      <tr><td><strong>CAE simulation</strong></td><td class="mono">Gmsh → CalculiX → PyVista</td><td>The exact pipeline in your render's CAE panel, and all of it is free. STEP in, mesh, solve, render the stress field, and have the model read the result and tell you where it's marginal.</td></tr>
+      <tr><td><strong>3P sheets</strong></td><td class="mono">python-docx / openpyxl</td><td>Your template + BOM from CAD + process steps → a filled operation sheet. The procedural memory store is what makes it match <em>your</em> format instead of a generic one.</td></tr>
+      <tr><td><strong>Production data</strong></td><td class="mono">pandas + your export</td><td>OEE, output and defect trend from whatever your plant already emits — CSV, SQL, or a shared folder. Feeds the production panel.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">
+    <span class="callout-k">One practical caution</span>
+    <p>CATIA models, 3P sheets and plant figures are usually your employer's property, not yours. Before any of that goes to a cloud API, check what your workplace actually permits — and consider running the domain layer against a local model on that data, keeping Claude for your personal side. Worth settling in week one rather than week twelve.</p>
+  </div>
+</section>
+
+<!-- 09 -->
+<section class="sheet">
+  <div class="sheet-head"><span class="sheet-no">09</span><h2>Build phases</h2><span class="sheet-note">6 gates</span></div>
+  <p class="lead">Sequenced so that value arrives early and hardware arrives late. Each gate is a thing that works, not a percentage complete. Timings assume evenings and weekends.</p>
+
+  <div class="phase"><div class="phase-id"><b>P0</b>WK 1–2</div><div class="phase-body">
+    <h4>The core, no hardware</h4>
+    <p>Chat loop, all three memory stores, Whisper in, Piper out, on the laptop alone. Nothing bought yet. Live with it for a week and let its failures write the rest of the plan.</p>
+    <span class="gate"><b>Gate</b> — You speak to it, and tomorrow it remembers what you said today.</span>
+  </div></div>
+
+  <div class="phase"><div class="phase-id"><b>P1</b>WK 3–4</div><div class="phase-body">
+    <h4>Surfaces</h4>
+    <p>React dashboard, one route per monitor, WebSocket deltas. Assistant panel, task panel, files. Kiosk browsers on autostart. This is where it starts looking like the render.</p>
+    <span class="gate"><b>Gate</b> — Three screens live, updating without a refresh.</span>
+  </div></div>
+
+  <div class="phase"><div class="phase-id"><b>P2</b>WK 5–6</div><div class="phase-body">
+    <h4>The room</h4>
+    <p>Pi provisioned, LED tubes mounted and diffused, clap detector tuned against your actual room noise, mmWave presence, wake-on-LAN, DDC-CI. The full Sheet 03 sequence.</p>
+    <span class="gate"><b>Gate</b> — Three claps, and the room comes alive in under a second.</span>
+  </div></div>
+
+  <div class="phase"><div class="phase-id"><b>P3</b>WK 7–9</div><div class="phase-body">
+    <h4>Tools and reach</h4>
+    <p>MCP host, the discovery loop, the approval gate. Calendar, mail, filesystem, browser. Proactive triggers — this is where it stops waiting for you and starts opening conversations.</p>
+    <span class="gate"><b>Gate</b> — It found and connected a tool you never installed, and asked before using it.</span>
+  </div></div>
+
+  <div class="phase"><div class="phase-id"><b>P4</b>WK 10–13</div><div class="phase-body">
+    <h4>Your actual job</h4>
+    <p>CATIA extraction, the Gmsh → CalculiX → PyVista pipeline, 3P sheet generation against your real template, production data ingest.</p>
+    <span class="gate"><b>Gate</b> — It generated a 3P sheet you were willing to submit.</span>
+  </div></div>
+
+  <div class="phase"><div class="phase-id"><b>P5</b>LATER</div><div class="phase-body">
+    <h4>The hero panel</h4>
+    <p>Pepper's Ghost rig, black-ground holo layout, Live2D or waveform avatar lip-synced to TTS visemes. Pure spectacle — which is exactly why it comes after everything that has to work.</p>
+    <span class="gate"><b>Gate</b> — Someone walks in and stops mid-sentence.</span>
+  </div></div>
+</section>
+
+<!-- 10 -->
+<section class="sheet">
+  <div class="sheet-head"><span class="sheet-no">10</span><h2>Running cost</h2><span class="sheet-note">Per month</span></div>
+  <p class="lead">The hardware is one payment. This is the recurring one, and it is almost entirely under your control through model routing and caching.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:24%">Path</th><th style="width:22%" class="mono">Model</th><th>Used for</th><th class="num" style="width:16%">$ / MTok in·out</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Hard reasoning</strong></td><td class="mono">claude-opus-5</td><td>Design questions, CAE interpretation, multi-step tool work, anything you'd want a colleague for. 1M context, adaptive thinking on.</td><td class="num">5 · 25</td></tr>
+      <tr><td><strong>Routine</strong></td><td class="mono">claude-haiku-4-5</td><td>Intent routing, mail triage, summarising, classification. Most of your call volume, a fifth of the price.</td><td class="num">1 · 5</td></tr>
+      <tr><td><strong>Always-on / offline</strong></td><td class="mono">ollama · local</td><td>Wake handling, quick lookups, and everything that must keep working when the internet doesn't. Free, runs on the laptop GPU.</td><td class="num">0</td></tr>
+    </tbody>
+  </table></div>
+  <h3>The three levers that actually move the bill</h3>
+  <ul>
+    <li><strong>Prompt caching.</strong> Your system prompt plus the semantic memory prefix is large and barely changes between calls — cache it and you stop paying full price for it on every turn. This is the single biggest saving and it costs you nothing in quality. Keep volatile content (timestamps, the current question) after the last cache breakpoint or you silently invalidate the whole thing.</li>
+    <li><strong>Effort control.</strong> Set <code>output_config.effort</code> per route — <code>low</code> for the morning brief, <code>high</code> or <code>xhigh</code> for design and simulation reasoning. Same model, very different spend.</li>
+    <li><strong>Route before you reason.</strong> Let the local model decide whether a request even needs the cloud. Most of them don't.</li>
+  </ul>
+  <p>Realistic personal use with caching and routing in place lands around <strong>$20–60/month (₹1,700–5,000)</strong>. Without them, easily five times that. Instrument <code>usage</code> on every response from day one — if <code>cache_read_input_tokens</code> comes back zero, something in your prefix is changing and you are paying for it.</p>
+</section>
+
+<footer>
+  <h3 style="margin-top:0">Before I start building</h3>
+  <p>Phase 0 needs no hardware and no purchases, so I can start on it immediately. Two decisions change its shape:</p>
+  <ol class="qs">
+    <li><strong>Cloud, local, or hybrid?</strong> Hybrid is my recommendation — Claude for reasoning, a local model for the always-on path and anything work-confidential. It's more moving parts, but it's the only option that survives both a power cut and a company data policy.</li>
+    <li><strong>Windows or Linux on the brain laptop?</strong> This one is load-bearing: pycatia needs Windows COM to talk to CATIA. If the domain layer matters to you, the laptop runs Windows and the Pi carries the always-on Linux work.</li>
+  </ol>
+  <p style="color:var(--ink-3); font-size:12.5px; font-family:'IBM Plex Mono',monospace; margin-top:26px">VERNIER WORKSHOP · BLUEPRINT REV A · COSTS ARE ESTIMATES, NOT QUOTES</p>
+</footer>
+
+</div>
