@@ -1,0 +1,16 @@
+[project]
+name = "aran"
+version = "0.1.0"
+description = "A personal engineering assistant that learns from its own mistakes"
+requires-python = ">=3.11"
+dependencies = ["anthropic>=0.40"]
+
+[project.scripts]
+aran = "aran.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["aran"]

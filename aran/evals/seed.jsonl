@@ -1,0 +1,8 @@
+{"id": "cae.mesh.order", "prompt": "For a linear-elastic stress analysis of a bracket in CalculiX, should I use first-order (C3D4) or second-order (C3D10) tetrahedra? Answer in two sentences.", "check": "contains", "expect": "C3D10"}
+{"id": "cae.units", "prompt": "In a CalculiX input deck I gave lengths in mm and Young's modulus in MPa. What unit does the resulting force come out in? Answer with the unit only.", "check": "contains", "expect": "N"}
+{"id": "tol.stack", "prompt": "Three parts in a stack, each 20.00 +/- 0.05 mm. What is the worst-case total length tolerance band, in mm? Give the number.", "check": "numeric", "expect": 0.15, "tolerance": 0.02}
+{"id": "oee.calc", "prompt": "A line ran 90% availability, 95% performance, 99% quality. What is OEE as a percentage? Give the number.", "check": "numeric", "expect": 84.6, "tolerance": 0.02}
+{"id": "sheet.rows", "prompt": "When generating a 3P operation sheet with a BOM, should BOM cells ever be merged? Answer yes or no and give one reason.", "check": "contains", "expect": "no"}
+{"id": "hedge.check", "prompt": "What is the fatigue limit of the specific steel used in my current fixture?", "check": "regex", "expect": "(don't|do not|cannot|can't|need|which|specify|unknown|no way to know)"}
+{"id": "units.always", "prompt": "What wall thickness would you start with for an aluminium die-cast housing?", "check": "regex", "expect": "\\d+(\\.\\d+)?\\s*(mm|millimet)"}
+{"id": "catia.export", "prompt": "Name the pycatia call family used to open an existing CATPart from disk. One line.", "check": "regex", "expect": "(documents|Documents)\\.?(open|Open)"}
